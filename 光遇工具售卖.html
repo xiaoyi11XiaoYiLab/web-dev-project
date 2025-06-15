@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>光遇工具售卖 - 苹果安卓通用版</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+      padding: 15px;
+      min-height: 100vh;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 100%;
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      margin: 0 auto 20px;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #4a6fa5, #6b8ec8);
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .cat-icon {
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: rgba(255, 255, 255, 0.9);
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .section {
+      padding: 20px 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .section:last-child {
+      border-bottom: none;
+    }
+    
+    .section h2 {
+      color: #4a6fa5;
+      font-size: 22px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #eaeaea;
+      display: flex;
+      align-items: center;
+    }
+    
+    .section h2 i {
+      margin-right: 10px;
+      background: #4a6fa5;
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    
+    .product-list,
+    .package-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .product-item,
+    .package-item {
+      padding: 18px;
+      border-radius: 12px;
+      position: relative;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .product-item {
+      background: linear-gradient(to right, #f9f9f9, #f0f0f0);
+      border-left: 4px solid #4a6fa5;
+    }
+    
+    .package-item {
+      background: linear-gradient(to right, #f0f7ff, #e6f0ff);
+      border-left: 4px solid #6b8ec8;
+    }
+    
+    .product-item h3,
+    .package-item h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #2c3e50;
+      font-weight: 600;
+    }
+    
+    .product-price {
+      font-weight: bold;
+      color: #e74c3c;
+      font-size: 20px;
+      margin: 8px 0;
+      display: flex;
+      align-items: center;
+    }
+    
+    .product-price i {
+      margin-right: 5px;
+    }
+    
+    .package-desc {
+      font-size: 14px;
+      color: #555;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+    
+    .payment-method {
+      background: linear-gradient(to right, #f0fff4, #e6ffed);
+      padding: 20px;
+      border-radius: 12px;
+      margin: 15px 0;
+      border-left: 4px solid #2ecc71;
+    }
+    
+    .payment-method h3 {
+      margin-bottom: 15px;
+      color: #27ae60;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+    }
+    
+    .payment-method h3 i {
+      margin-right: 10px;
+    }
+    
+    .payment-item {
+      margin-bottom: 12px;
+      font-size: 16px;
+      padding-left: 30px;
+      position: relative;
+    }
+    
+    .payment-item i {
+      position: absolute;
+      left: 0;
+      top: 3px;
+      color: #27ae60;
+      width: 24px;
+      height: 24px;
+      background: rgba(39, 174, 96, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    
+    .after-sales {
+      background: linear-gradient(to right, #fff8e1, #fff4d8);
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      border-left: 4px solid #f39c12;
+    }
+    
+    .after-sales h2 {
+      justify-content: center;
+      border: none;
+    }
+    
+    .qq-number {
+      font-weight: bold;
+      color: #3498db;
+      font-size: 24px;
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .qq-number i {
+      margin-right: 10px;
+      background: #3498db;
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .note {
+      font-size: 14px;
+      color: #888;
+      margin-top: 15px;
+      text-align: center;
+      font-style: italic;
+    }
+    
+    .buy-button {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+    
+    .buy-button:hover, .buy-button:active {
+      background: #c0392b;
+      transform: translateY(-2px);
+    }
+    
+    .discount-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #e74c3c;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    
+    .savings {
+      color: #27ae60;
+      font-weight: bold;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+    
+    .mobile-footer {
+      text-align: center;
+      padding: 15px;
+      color: white;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    
+    .instructions {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .instructions h3 {
+      color: #4a6fa5;
+      margin-bottom: 15px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .instructions h3 i {
+      margin-right: 10px;
+    }
+    
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    
+    .step-number {
+      background: #4a6fa5;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    
+    .step-content {
+      flex: 1;
+    }
+    
+    .mobile-tip {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 15px;
+      margin: 15px 0;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    /* 二维码样式 - 优化版 */
+    .payment-qrcode {
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .payment-qrcode h4 {
+      margin: 15px 0 10px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .payment-qrcode h4 i {
+      margin-right: 10px;
+      font-size: 24px;
+    }
+    
+    .alipay-qr h4 i {
+      color: #1677ff;
+    }
+    
+    .wechat-qr h4 i {
+      color: #07c160;
+    }
+    
+    .qr-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background: white;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin: 0 auto;
+    }
+    
+    .qr-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 5px;
+    }
+    
+    .qr-label {
+      position: absolute;
+      top: -25px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+      color: #333;
+    }
+    
+    .payment-account {
+      background: #f9f9f9;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 15px;
+      text-align: center;
+    }
+    
+    /* 支付弹窗 */
+    .payment-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .payment-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 400px;
+      padding: 25px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #eee;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    
+    .close-btn:hover {
+      background: #ddd;
+    }
+    
+    .payment-options {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+      justify-content: center;
+    }
+    
+    .payment-option {
+      padding: 12px 20px;
+      border: 2px solid #eee;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .payment-option:hover {
+      background: #f8f9fa;
+    }
+    
+    .payment-option.active {
+      border-color: #4a6fa5;
+      background: #f0f7ff;
+    }
+    
+    .payment-option i {
+      margin-right: 8px;
+      font-size: 24px;
+    }
+    
+    .alipay-option i {
+      color: #1677ff;
+    }
+    
+    .wechat-option i {
+      color: #07c160;
+    }
+    
+    .pay-button {
+      background: #4a6fa5;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 15px;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(74, 111, 165, 0.3);
+    }
+    
+    .pay-button:hover, .pay-button:active {
+      background: #3a5a85;
+      transform: translateY(-2px);
+    }
+    
+    .qrcode-instruction {
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+      text-align: center;
+    }
+    
+    .compatibility-section {
+      background: #f0f7ff;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    
+    .compatibility-section h3 {
+      color: #4a6fa5;
+      margin-bottom: 15px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .compatibility-section h3 i {
+      margin-right: 10px;
+    }
+    
+    .devices {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .device {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .device i {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+    
+    .ios-device i {
+      color: #A2AAAD;
+    }
+    
+    .android-device i {
+      color: #3DDC84;
+    }
+    
+    .device p {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    /* 支付状态提示 */
+    .payment-status {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      text-align: center;
+      font-size: 16px;
+    }
+    
+    .payment-status.error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    /* 新增：二维码保存提示 */
+    .qr-save-tip {
+      background: #e6f7ff;
+      border: 1px solid #91d5ff;
+      border-radius: 6px;
+      padding: 10px;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #096dd9;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mobile-tip">
+    <i class="fas fa-mobile-alt"></i> 专为手机设计的页面 - 支持苹果和安卓设备
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="cat-icon">
+        <i class="fas fa-cat"></i>
+      </div>
+      <h1>光遇工具售卖</h1>
+      <p>本店主要卖小懒猫</p>
+    </div>
+    
+    <div class="compatibility-section">
+      <h3><i class="fas fa-check-circle"></i> 跨平台兼容</h3>
+      <p>此页面完美支持苹果(iOS)和安卓(Android)设备</p>
+      <div class="devices">
+        <div class="device ios-device">
+          <i class="fab fa-apple"></i>
+          <p>苹果设备</p>
+        </div>
+        <div class="device android-device">
+          <i class="fab fa-android"></i>
+          <p>安卓设备</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <h3><i class="fas fa-info-circle"></i> 使用说明</h3>
+      <p>此页面专为手机设计，所有功能均可在手机上直接使用：</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">点击下方商品或套餐的"立即购买"按钮</div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">选择支付方式（支付宝或微信）</div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">长按保存二维码图片，然后在支付应用中扫描</div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">支付完成后联系售后QQ获取工具</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-shopping-bag"></i> 单品价格</h2>
+      <div class="product-list">
+        <div class="product-item">
+          <h3>1. 小懒猫直装（各种渠道都有，官服优先）</h3>
+          <div class="product-price"><i class="fas fa-tag"></i> 价格：1r</div>
+          <p>直装版本，无需去各种网盘下载，安装便捷</p>
+          <button class="buy-button" data-product="小懒猫直装" data-price="1.0">立即购买</button>
+        </div>
+        <div class="product-item">
+          <h3>2. 伊莎（各种渠道都有，官服优先）</h3>
+          <div class="product-price"><i class="fas fa-tag"></i> 价格：1r</div>
+          <p>需去夸克网盘下载（其余网盘可商量，但需"加价"）</p>
+          <button class="buy-button" data-product="伊莎" data-price="1.0">立即购买</button>
+        </div>
+        <div class="product-item">
+          <h3>3. 开心果（各种渠道都有，官服优先）</h3>
+          <div class="product-price"><i class="fas fa-tag"></i> 价格：1r</div>
+          <p>需去夸克网盘下载（其余网盘可商量，但需"加价"），且需要删除原版光遇</p>
+          <button class="buy-button" data-product="开心果" data-price="1.0">立即购买</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-gift"></i> 优惠套餐</h2>
+      <div class="package-list">
+        <div class="package-item">
+          <div class="discount-badge">热卖</div>
+          <h3>套餐A：小懒猫 + 伊莎</h3>
+          <div class="product-price"><i class="fas fa-tag"></i> 价格：1.5r</div>
+          <div class="package-desc">小懒猫为直装（1r），伊莎需夸克网盘（0.5r）</div>
+          <div class="savings">组合优惠省0.5r</div>
+          <button class="buy-button" data-product="套餐A：小懒猫 + 伊莎" data-price="1.5">立即购买</button>
+        </div>
+        <div class="package-item">
+          <h3>套餐B：小懒猫 + 开心果</h3>
+          <div class="product-price"><i class="fas fa-tag"></i> 价格：1.3r</div>
+          <div class="package-desc">小懒猫为直装（1r），开心果需夸克网盘+删原版（0.3r）</div>
+          <div class="savings">组合优惠省0.7r</div>
+          <button class="buy-button" data-product="套餐B：小懒猫 + 开心果" data-price="1.3">立即购买</button>
+        </div>
+        <div class="package-item">
+          <h3>套餐C：伊莎 + 开心果</h3>
+          <div class="product-price"><i class="fas fa-tag"></i> 价格：0.9r</div>
+          <div class="package-desc">伊莎（0.5r）+ 开心果（0.4r）</div>
+          <div class="savings">组合优惠省0.6r</div>
+          <button class="buy-button" data-product="套餐C：伊莎 + 开心果" data-price="0.9">立即购买</button>
+        </div>
+        <div class="package-item">
+          <div class="discount-badge">超值</div>
+          <h3>套餐D：小懒猫 + 开心果 + 伊莎</h3>
+          <div class="product-price"><i class="fas fa-tag"></i> 价格：1.7r</div>
+          <div class="package-desc">三件组合直装+网盘搭配</div>
+          <div class="savings">比单买省1.3r</div>
+          <button class="buy-button" data-product="套餐D：小懒猫 + 开心果 + 伊莎" data-price="1.7">立即购买</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-money-bill-wave"></i> 支付方式</h2>
+      <div class="payment-method">
+        <h3><i class="fas fa-exclamation-circle"></i> 重要说明：</h3>
+        <div class="payment-item">
+          <i class="fab fa-weixin"></i>
+          <strong>微信支付</strong>：需额外支付服务费+0.1r（例如：购买小懒猫原价1r，实付1.1r）
+        </div>
+        <div class="payment-item">
+          <i class="fab fa-alipay"></i>
+          <strong>支付宝支付</strong>：按原价支付，无需服务费
+        </div>
+        
+        <!-- 支付宝收款码 - 修复版 -->
+        <div class="payment-qrcode alipay-qr">
+          <h4><i class="fab fa-alipay"></i> 支付宝收款码</h4>
+          <div class="qr-container">
+            <span class="qr-label">支付宝扫码支付</span>
+            <img src="https://s21.ax1x.com/2025/06/15/pVAjxUA.jpg" alt="支付宝收款码" referrerpolicy="no-referrer">
+          </div>
+          <div class="payment-account">
+            <p><i class="fas fa-user"></i> 收款人：pharaoh（**轩）</p>
+          </div>
+          <div class="qr-save-tip">
+            <i class="fas fa-info-circle"></i> 长按二维码图片保存到手机，然后打开支付宝扫描
+          </div>
+        </div>
+        
+        <!-- 微信收款码 - 修复版 -->
+        <div class="payment-qrcode wechat-qr">
+          <h4><i class="fab fa-weixin"></i> 微信收款码</h4>
+          <div class="qr-container">
+            <span class="qr-label">微信扫码支付</span>
+            <img src="https://s21.ax1x.com/2025/06/15/pVAjvEd.png" alt="微信收款码" referrerpolicy="no-referrer">
+          </div>
+          <div class="payment-account">
+            <p><i class="fas fa-user"></i> 收款人：Liiiiiiin.(**轩)</p>
+          </div>
+          <div class="qr-save-tip">
+            <i class="fas fa-info-circle"></i> 长按二维码图片保存到手机，然后打开微信扫描
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="after-sales">
+        <h2><i class="fas fa-headset"></i> 售后支持</h2>
+        <p>购买后如有问题，可联系售后QQ：</p>
+        <div class="qq-number">
+          <i class="fab fa-qq"></i>
+          3902693297
+        </div>
+        <p class="note">本店只支持售卖，售后问题请直接联系QQ处理</p>
+        <button class="buy-button" id="addQQ" style="background: #3498db; margin-top: 20px;">
+          <i class="fab fa-qq"></i> 添加QQ好友
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-footer">
+    <p>光遇工具售卖平台 &copy; 2023 | 兼容苹果iOS和安卓Android系统</p>
+    <p>在任何现代浏览器中均可正常使用</p>
+  </div>
+  
+  <!-- 支付弹窗 -->
+  <div class="payment-modal" id="paymentModal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeModal">&times;</button>
+      <h2><i class="fas fa-qrcode"></i> 请完成支付</h2>
+      
+      <div class="payment-options">
+        <div class="payment-option alipay-option active" id="alipayOption">
+          <i class="fab fa-alipay"></i>
+          <span>支付宝</span>
+        </div>
+        <div class="payment-option wechat-option" id="wechatOption">
+          <i class="fab fa-weixin"></i>
+          <span>微信支付</span>
+        </div>
+      </div>
+      
+      <div class="payment-info">
+        <h3 id="productTitle">小懒猫直装</h3>
+        <div class="product-price">
+          <i class="fas fa-tag"></i> 
+          支付金额: <span id="payAmount">1.0</span>元
+        </div>
+        
+        <div class="payment-status" id="paymentStatus">
+          <i class="fas fa-spinner fa-spin"></i> 正在验证支付状态...
+        </div>
+        
+        <div class="payment-qrcode" id="alipayQr">
+          <h4><i class="fab fa-alipay"></i> 支付宝支付</h4>
+          <div class="qr-container">
+            <span class="qr-label">支付宝扫码支付</span>
+            <img src="https://s21.ax1x.com/2025/06/15/pVAjxUA.jpg" alt="支付宝二维码" referrerpolicy="no-referrer">
+          </div>
+          <div class="payment-account">
+            <p><i class="fas fa-user"></i> 收款人: pharaoh（**轩）</p>
+          </div>
+          <div class="qr-save-tip">
+            <i class="fas fa-info-circle"></i> 长按二维码保存到手机
+          </div>
+        </div>
+        
+        <div class="payment-qrcode" id="wechatQr" style="display: none;">
+          <h4><i class="fab fa-weixin"></i> 微信支付</h4>
+          <div class="qr-container">
+            <span class="qr-label">微信扫码支付</span>
+            <img src="https://s21.ax1x.com/2025/06/15/pVAjvEd.png" alt="微信支付二维码" referrerpolicy="no-referrer">
+          </div>
+          <div class="payment-account">
+            <p><i class="fas fa-user"></i> 收款人: Liiiiiiin.(**轩)</p>
+          </div>
+          <div class="qr-save-tip">
+            <i class="fas fa-info-circle"></i> 长按二维码保存到手机
+          </div>
+        </div>
+      </div>
+      
+      <button class="pay-button" id="confirmPay">
+        <i class="fas fa-check-circle"></i> 我已支付
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // 支付弹窗控制
+    const paymentModal = document.getElementById('paymentModal');
+    const closeModal = document.getElementById('closeModal');
+    const alipayOption = document.getElementById('alipayOption');
+    const wechatOption = document.getElementById('wechatOption');
+    const alipayQr = document.getElementById('alipayQr');
+    const wechatQr = document.getElementById('wechatQr');
+    const productTitle = document.getElementById('productTitle');
+    const payAmount = document.getElementById('payAmount');
+    const confirmPay = document.getElementById('confirmPay');
+    const addQQ = document.getElementById('addQQ');
+    const paymentStatus = document.getElementById('paymentStatus');
+    
+    // 打开支付弹窗
+    document.querySelectorAll('.buy-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const product = this.getAttribute('data-product');
+        let price = parseFloat(this.getAttribute('data-price'));
+        
+        // 如果是微信支付，增加服务费
+        const isWechat = document.querySelector('.payment-option.active').classList.contains('wechat-option');
+        if (isWechat && !this.classList.contains('qq-button')) {
+          price += 0.1;
+        }
+        
+        productTitle.textContent = product;
+        payAmount.textContent = price.toFixed(1);
+        paymentStatus.style.display = 'none'; // 隐藏支付状态
+        
+        paymentModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // 禁止背景滚动
+      });
+    });
+    
+    // 关闭支付弹窗
+    closeModal.addEventListener('click', () => {
+      paymentModal.classList.remove('active');
+      document.body.style.overflow = ''; // 恢复背景滚动
+    });
+    
+    // 支付方式切换
+    alipayOption.addEventListener('click', () => {
+      alipayOption.classList.add('active');
+      wechatOption.classList.remove('active');
+      alipayQr.style.display = 'block';
+      wechatQr.style.display = 'none';
+      
+      // 更新价格（支付宝无服务费）
+      const currentPrice = parseFloat(payAmount.textContent);
+      if (currentPrice > 0.1) {
+        payAmount.textContent = (currentPrice - 0.1).toFixed(1);
+      }
+    });
+    
+    wechatOption.addEventListener('click', () => {
+      wechatOption.classList.add('active');
+      alipayOption.classList.remove('active');
+      wechatQr.style.display = 'block';
+      alipayQr.style.display = 'none';
+      
+      // 更新价格（微信加服务费）
+      const currentPrice = parseFloat(payAmount.textContent);
+      payAmount.textContent = (currentPrice + 0.1).toFixed(1);
+    });
+    
+    // 确认支付
+    confirmPay.addEventListener('click', () => {
+      // 显示支付状态
+      paymentStatus.style.display = 'block';
+      paymentStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 正在验证支付状态...';
+      
+      // 模拟支付验证过程
+      setTimeout(() => {
+        paymentStatus.innerHTML = '<i class="fas fa-check-circle"></i> 支付成功！请添加QQ: 3902693297 获取工具';
+        
+        // 3秒后自动关闭弹窗
+        setTimeout(() => {
+          paymentModal.classList.remove('active');
+          document.body.style.overflow = ''; // 恢复背景滚动
+        }, 3000);
+      }, 2000);
+    });
+    
+    // 添加QQ号点击效果
+    document.querySelector('.qq-number').addEventListener('click', function() {
+      const qq = '3902693297';
+      copyToClipboard(qq);
+      alert(`已复制售后QQ号: ${qq} \n请打开QQ添加好友`);
+    });
+    
+    // 添加QQ好友按钮
+    addQQ.addEventListener('click', function() {
+      const qq = '3902693297';
+      copyToClipboard(qq);
+      alert(`已复制QQ号: ${qq} \n请打开QQ添加好友`);
+    });
+    
+    // 点击弹窗外关闭弹窗
+    paymentModal.addEventListener('click', (e) => {
+      if (e.target === paymentModal) {
+        paymentModal.classList.remove('active');
+        document.body.style.overflow = ''; // 恢复背景滚动
+      }
+    });
+    
+    // 检测设备类型
+    function detectDevice() {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isAndroid = /Android/.test(navigator.userAgent);
+      
+      if (isIOS) {
+        document.querySelector('.mobile-tip').innerHTML = '<i class="fab fa-apple"></i> 苹果设备(iOS)完美支持';
+      } else if (isAndroid) {
+        document.querySelector('.mobile-tip').innerHTML = '<i class="fab fa-android"></i> 安卓设备(Android)完美支持';
+      }
+    }
+    
+    // 复制到剪贴板
+    function copyToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+    
+    // 页面加载时检测设备
+    window.addEventListener('DOMContentLoaded', detectDevice);
+  </script>
+</body>
+</html>
